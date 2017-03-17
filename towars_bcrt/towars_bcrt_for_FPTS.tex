@@ -32,6 +32,9 @@
 \usepackage{epstopdf}
 \usepackage{mathtools}
 
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
 \usepackage{fouriernc}
 \pagestyle{plain}
 \usepackage{float}
@@ -93,7 +96,7 @@
 % Add abstract here %
 %\end{abstract}
 
-\section*{Recap on initial results}
+\section{Recap on initial results}
 %The optimal instant as presented for FPPS occurs when the completion of a job of a task $\tau_i$ coincides with the simultaneous release of all its higher priority tasks. We now investigate whether this is a valid optimal instant for FPTS. For this case, consider the task-set $\mathpzc{T}_{\ref{tab:taskset2}}$ described in Table \ref{tab:taskset2}. Figure \ref{fig:bcrt2} shows an optimal instant of this task-set for task $\tau_3$ as described for FPPS. As can be seen, at the time $t=770$, the completion of task $\tau_3$ coincides with the release of higher priority tasks $\tau_1$ and $\tau_2$. The shortest response time for this situation, is $R_3=50$ and it is assumed by the job activated at time $t=610$. However, $R_3=50$ is an optimistic value for the \textit{best-case response time} under FPTS as we will show as follows. Figure \ref{fig:bcrt3} shows the same task-set $\mathpzc{T}_{\ref{tab:taskset2}}$ scheduled with different phases $\phi_i$. In this case, the \textit{shortest response time} for task $\tau_3$ is $R_3=30$, and it occurs at the time $t=630$. This response time coincides with the \textit{best-case execution time} $BC_3$; therefore, this is indeed the \textit{best-case response time}.
 
 \begin{fact}
@@ -145,10 +148,10 @@ This facts shows the importance of considering delaying tasks in the \textit{bes
 
 Further experiments suggest that this fact is probably not true. Probably a lower priority blocking task cannot affect the \textit{best-case response time} of a higher priority task $\tau_i$.
 
-\section*{Further results}
+\section{Further results}
 
 \begin{fact}
-	The \textit{best-case response time} is not necessarily found when the activation of all higher priority tasks that can preempt a task $\tau_i$ coincides with the completion of a job of $\tau_i$.
+	In general, the \textit{best-case response time} is not necessarily found when the activation of all higher priority tasks that can preempt a task $\tau_i$ coincides with the completion of a job of $\tau_i$.
 \end{fact}
 
 Consider the taskset presented in Table \ref{tab:taskset2}. In Figure \ref{fig:fact5_1} a schedule is shown where the activation of higher priority tasks $\tau_1$ and $\tau_2$ coincides with the completion of a job of $\tau_4$ at time $t=736$. As can be seen, the shortest response time for $\tau_4$ under this schedule is assumed by the job activated at time $t=560$ with a response time of 32. However, this is not the \textit{best-case response time} for $\tau_4$. Figure \ref{fig:fact5_2} shows a schedule for $\mathpzc{T}_{\ref{tab:taskset2}}$ where a response time of $R_4=27$ for task $\tau_4$ is found at time $t=709$. 
@@ -156,14 +159,14 @@ Consider the taskset presented in Table \ref{tab:taskset2}. In Figure \ref{fig:f
 	\center
 	\caption{Task set $\mathpzc{T}_{\ref{tab:taskset2}}$.}
 	\label{tab:taskset2}
-	\begin{tabular}{c c c c c | c}
+	\begin{tabular}{c c c c c | c c}
 		\hline 
-		& $T_i$ & $WC_i=BC_i$ & $\pi_i$ & $\theta_i$ &  $wl_i$\\ 
+		& $T_i$ & $WC_i=BC_i$ & $\pi_i$ & $\theta_i$ &  $wl_i$ & $BR_i$\\ 
 		\hline 
-		$\tau_1$& 35 & 5  & 4 & 4 &  1 \\ 
-		$\tau_2$& 35 & 5  & 3 & 3 &  1 \\ 
-		$\tau_3$& 50 & 20 & 2 & 2 &  2 \\ 
-		$\tau_4$& 70 & 22 & 1 & 2 &  5 \\
+		$\tau_1$& 35 & 5  & 4 & 4 &  1 & 5\\ 
+		$\tau_2$& 35 & 5  & 3 & 3 &  1 & 5\\ 
+		$\tau_3$& 50 & 20 & 2 & 2 &  2 & 20\\ 
+		$\tau_4$& 70 & 22 & 1 & 2 &  5 & 27\\
 		\hline 
 	\end{tabular}
 	\small
@@ -194,13 +197,13 @@ Consider the task-set $\mathpzc{T}_{\ref{tab:taskset3}}$ presented in Table \ref
 	\center
 	\caption{Task set $\mathpzc{T}_{\ref{tab:taskset3}}$.}
 	\label{tab:taskset3}
-	\begin{tabular}{c c c c c | c}
+	\begin{tabular}{c c c c c | c c}
 		\hline 
-		& $T_i$ & $WC_i=BC_i$ & $\pi_i$ & $\theta_i$ &  $wl_i$\\ 
+		& $T_i$ & $WC_i=BC_i$ & $\pi_i$ & $\theta_i$ &  $wl_i$ & $BR_i$\\ 
 		\hline 
-		$\tau_1$& 80  & 20  & 3 & 3 &  1 \\ 
-		$\tau_2$& 30  & 15  & 2 & 2 &  2 \\ 
-		$\tau_3$& 240 & 5   & 1 & 2 &  1 \\ 
+		$\tau_1$& 80  & 20  & 3 & 3 &  1 & 20\\ 
+		$\tau_2$& 30  & 15  & 2 & 2 &  2 & 15\\ 
+		$\tau_3$& 240 & 50  & 1 & 2 &  1 & 70\\ 
 		\hline 
 	\end{tabular}
 	\small
@@ -217,12 +220,146 @@ Consider the task-set $\mathpzc{T}_{\ref{tab:taskset3}}$ presented in Table \ref
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{figures/fact6_2}
-	\caption{Schedule of taskset $\mathpzc{T}_{\ref{tab:taskset3}}$. The phases used to construct this schedule are $\phi_1 = 0$, $\phi_3 = 2$ and $\phi_3 = 30$.}
+	\caption{Schedule of taskset $\mathpzc{T}_{\ref{tab:taskset3}}$. The phases used to construct this schedule are $\phi_1 = 0$, $\phi_2 = 2$ and $\phi_3 = 30$.}
 	\label{fig:fact6_2}
 \end{figure}
 
-\section*{BCHT for FPTS}
+\subsection{Blocking tasks}
 
+\begin{fact}
+	A lower priority task that can block the execution of a task $\tau_i$ cannot affect the \textit{best-case response time} of $\tau_i$.
+\end{fact}
+
+Consider task-set $\mathpzc{T}_{\ref{tab:taskset4}}$ described in Table \ref{tab:taskset4}. Figure \ref{fig:fact7_1} shows an schedule for such a task-set, but only considering tasks $\tau_1$ and $\tau_2$. As can be seen, the \textit{best-case response time} $BR_2=50$ for task $\tau_2$ is assumed in the schedule. Introducing the blocking task $\tau_3$ could affect the response time of task $\tau_2$ as shown in Figure \ref{fig:fact7_2}. However, it is always possible to re-schedule a blocking task in such a way that it does not affect the \textit{best-case response time} of its higher priority tasks. Figure \ref{fig:fact7_3} shows the task-set $\mathpzc{T}_{\ref{tab:taskset4}}$ scheduled in such a way that the \textit{best-case response time} for task $\tau_2$ is assumed.
+
+\begin{table}[H]
+	\center
+	\caption{Task set $\mathpzc{T}_{\ref{tab:taskset4}}$.}
+	\label{tab:taskset4}
+	\begin{tabular}{c c c c c | c c}
+		\hline 
+		& $T_i$ & $WC_i=BC_i$ & $\pi_i$ & $\theta_i$ &  $wl_i$ & $BR_i$\\ 
+		\hline 
+		$\tau_1$& 80  & 20  & 3 & 3 &  1 & 20\\
+		$\tau_2$& 240 & 50  & 2 & 2 &  1 & 50\\ 
+		$\tau_3$& 30  & 15  & 1 & 2 &  8 & 15\\ 
+		\hline 
+	\end{tabular}
+	\small
+	\item The \textit{least common multiple} of the periods is 240 and $U^{\mathpzc{T_{\ref{tab:taskset2}}}} \approx 0.96$.
+\end{table} 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/fact6_1}
+	\caption{Schedule of taskset $\mathpzc{T}_{\ref{tab:taskset4}} \textbackslash \tau_3$. The phases used to construct this schedule are $\phi_1 = 0$ and $\phi_2 = 30$.}
+	\label{fig:fact7_1}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/fact7_2}
+	\caption{Schedule of task-set $\mathpzc{T}_{\ref{tab:taskset4}}$. The phases used to construct this schedule are $\phi_1 = \phi_2 = 0$ and $\phi_2 = 30$.}
+	\label{fig:fact7_2}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/fact7_3}
+	\caption{Schedule of task-set $\mathpzc{T}_{\ref{tab:taskset4}}$ where the \textit{best-case response time} for task $\tau_2$ is assumed. The phases used to construct this schedule are $\phi_1 = \phi_2 = 25$ and $\phi_2 = 30$.}
+	\label{fig:fact7_3}
+\end{figure}
+
+\section{BCHT for FPTS}
+
+Given a task-set $\mathpzc{T}$, Algorithm 1 shows a procedure to derive a less pessimistic lower bound for the \textit{best-case hold time} of a task $\tau_i$. Table \ref{tab:terminology} explain the terminology for the variables used in the algorithm. Furthermore, function $BI_i(y,PA_d)$ returns the the largest positive solution satisfying
+
+\begin{align}
+x = y + \sum\limits_{h:\pi_h > \theta_i} \Big( \Big\lceil  \dfrac{x}{T_h}\Big\rceil -1 \Big)^+  BC_h + \sum\limits_{d:\theta_i \geq \pi_d \pi_i} \Big( \Big\lceil  \dfrac{x-PA_d}{T_d}\Big\rceil -1 \Big)^+  BC_d,
+\end{align}
+
+\noindent
+where the notion $w^+$ stands for $\max(w,0)$.
+
+\begin{table}[H]
+	\center
+	\caption{Terminology.}
+	\label{tab:terminology}
+	\begin{tabular}{|c | p{8cm}|}
+		\hline
+		Name & Descriptions \\ 
+		\hline 
+		\hline
+		$LB^{init}_i$& Initial lower bound. This is the \textit{best-case hold time} of task $\tau_i$ when considering only preemptive tasks.\\
+		\hline
+		$UB_i$& Upper bound in hold time when pushing the activation of delaying tasks. \\ 
+		\hline
+		$PI_i$ & Push interval of delaying tasks relative to $LB^{init}_i$.   \\ 
+		\hline
+		$DI_i$ & Delay interval of task $\tau_i$ is the time interval in which delaying tasks can affect the hold time.\\
+		\hline 
+	\end{tabular}
+	%\small
+	%\item The \textit{least common multiple} of the periods is 240 and $U^{\mathpzc{T_{\ref{tab:taskset2}}}} \approx 0.96$.
+\end{table} 
+
+\begin{algorithm}[H]
+	\caption{Algorithm to derive a tighter lower bound for the \textit{best-case hold time} of task $\tau_i$.}\label{euclid}
+	\begin{algorithmic}[1]
+		\Procedure{\textit{HLB}$_i$}{$\mathpzc{T}$}
+		\State $HLB^{init}_i = BI_i(BC_i,\infty)$;
+		\State $PI_i = -\delta$;
+		\State $LB_i = HLB^{init}_i + PI_i$;
+		\State $UB_i = BI_i(BC_i,LB_i)$;
+		\If {$UB_i > HLB^{init}_i$}
+		\State $LB_i = HLB^{init}_i$;
+		\EndIf {\textbf{end if}}
+		\While {$UB_i > HLB^{init}_i$}
+		\State $DI_i = UB_i - LB_i$;
+		\State $PI_i = \min \limits_{d:\theta_i \geq \pi_d > \pi_i} (DI_i \mod T_d);$
+		\State $LB_i = LB_i + PI_i$;
+		\State $UB_i = BI_i(BC_i,LB_i)$;
+		\EndWhile{\textbf{end while}}
+		\State \Return $LB_i$; 
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+In order to illustrate how the algorithm works, consider the task-set $\mathpzc{T}_{\ref{tab:taskset5}}$ described in Table \ref{tab:taskset5}. Figure \ref{fig:bcht_1} shows the notions after performing Algorithm 1 to calculate $HLB_4=55$. Note that in Figure \ref{fig:bcht_1}, the second job of $\tau_3$ activated at time $t=30$, namely $\iota_{3,2}$, does not start. This is to illustrate that the \textit{best-case hold time} of $\tau_4$ should be long enough in order to delay the start time of $\iota_{3,2}$, i.e. $BH_4 > HLB_4$. If this condition is not met, the job $\iota_{3,2}$ will start and delay the start time of $\tau_4$. As a consequence, the job of $\tau_4$ will experience preemptions by the higher priority tasks activated at time $t=85$.
+
+\begin{table}[H]
+	\center
+	\caption{Task set $\mathpzc{T}_{\ref{tab:taskset5}}$.}
+	\label{tab:taskset5}
+	\begin{tabular}{c c c c c | c c c c}
+		\hline 
+		& $T_i$ & $WC_i=BC_i$ & $\pi_i$ & $\theta_i$ &  $wl_i$ & $BR_i$ & $HLB_i$ & $HLB^{init}_i$\\ 
+		\hline 
+		$\tau_1$& 80  & 14  & 4 & 4 &  1 & 14 & &\\
+		$\tau_2$& 80  & 6   & 3 & 3 &  1 & 6  & &\\ 
+		$\tau_3$& 30  & 15  & 2 & 2 &   & 15  & &\\ 
+		$\tau_4$& 240 & 50  & 1 & 2 &   & 56  & 55& 50\\
+		\hline 
+	\end{tabular}
+	\small
+	\item The \textit{least common multiple} of the periods is 240 and $U^{\mathpzc{T_{\ref{tab:taskset2}}}} \approx 0.96$.
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/bcht_1}
+	\caption{Schedule of task-set $\mathpzc{T}_{\ref{tab:taskset5}}$ with the notions described in Table \ref{tab:terminology}.}
+	\label{fig:bcht_1}
+\end{figure}
+
+Note that the only way for the job of task $\tau_4$ to have a hold time higher than $HLB_4=55$ is by experiencing preemption by either task $\tau_1$, $\tau_2$ or both. Since $\tau_2$ has a \textit{best-case execution time} $BC_2=6$, we can choose this task to preempt $\tau_4$ and the condition will be met because $HLB^{init}_i+BC_2= 56$ which is higher $HLB_i = 55$. This is indeed the \textit{best-case hold time} because if we would choose $\tau_1$ to preempt $\tau_4$, the resulting hold time would be $HLB^{init}_i+BC_1= 64$. Figure 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/bcht_2}
+	\caption{Schedule of task-set $\mathpzc{T}_{\ref{tab:taskset5}}$ where the \textit{best-case hold time} for task $\tau_4$ is assumed ($BH_4 = 56$).}
+	\label{fig:bcht_2}
+\end{figure}
 
 \begin{thebibliography}{10}
 	
