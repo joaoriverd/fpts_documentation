@@ -213,14 +213,14 @@ Consider the task-set $\mathpzc{T}_{\ref{tab:taskset3}}$ presented in Table \ref
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{figures/fact6_1}
-	\caption{Schedule of taskset $\mathpzc{T}_{\ref{tab:taskset3}} \textbackslash \tau_2$. The phases used to construct this schedule are $\phi_1 = 0$ and $\phi_3 = 30$.}
+	\caption{Schedule of task-set $\mathpzc{T}_{\ref{tab:taskset3}} \textbackslash \{\tau_2\}$. The phases used to construct this schedule are $\phi_1 = 0$ and $\phi_3 = 30$.}
 	\label{fig:fact6_1}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{figures/fact6_2}
-	\caption{Schedule of taskset $\mathpzc{T}_{\ref{tab:taskset3}}$. The phases used to construct this schedule are $\phi_1 = 0$, $\phi_2 = 2$ and $\phi_3 = 30$.}
+	\caption{Schedule of task-set $\mathpzc{T}_{\ref{tab:taskset3}}$. The phases used to construct this schedule are $\phi_1 = 0$, $\phi_2 = 2$ and $\phi_3 = 30$.}
 	\label{fig:fact6_2}
 \end{figure}
 
@@ -259,14 +259,14 @@ Consider task-set $\mathpzc{T}_{\ref{tab:taskset4}}$ described in Table \ref{tab
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{figures/fact7_2}
-	\caption{Schedule of task-set $\mathpzc{T}_{\ref{tab:taskset4}}$. The phases used to construct this schedule are $\phi_1 = \phi_2 = 0$ and $\phi_2 = 30$.}
+	\caption{Schedule of task-set $\mathpzc{T}_{\ref{tab:taskset4}}$. The phases used to construct this schedule are $\phi_1 = \phi_3 = 0$ and $\phi_2 = 30$.}
 	\label{fig:fact7_2}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.9\linewidth]{figures/fact7_3}
-	\caption{Schedule of task-set $\mathpzc{T}_{\ref{tab:taskset4}}$ where the \textit{best-case response time} for task $\tau_2$ is assumed. The phases used to construct this schedule are $\phi_1 = \phi_2 = 25$ and $\phi_2 = 30$.}
+	\caption{Schedule of task-set $\mathpzc{T}_{\ref{tab:taskset4}}$ where the \textit{best-case response time} for task $\tau_2$ is assumed. The phases used to construct this schedule are $\phi_1 = 0$ , $\phi_3 = 25$ and $\phi_2 = 30$.}
 	\label{fig:fact7_3}
 \end{figure}
 
@@ -285,16 +285,18 @@ where the notion $w^+$ stands for $\max(w,0)$.
 	\center
 	\caption{Terminology.}
 	\label{tab:terminology}
-	\begin{tabular}{|c | p{8cm}|}
+	\begin{tabular}{|c | p{9cm}|}
 		\hline
 		Name & Descriptions \\ 
 		\hline 
 		\hline
-		$LB^{init}_i$& Initial lower bound. This is the \textit{best-case hold time} of task $\tau_i$ when considering only preemptive tasks.\\
+		$HLB^{init}_i$& Initial lower bound. This is the \textit{best-case hold time} of task $\tau_i$ when considering only preemptive tasks.\\
+		\hline
+		$LB_i$& Lower bound of the \textit{best-case hold time} if $\tau_i$; $BH_i > LB_i.$\\
 		\hline
 		$UB_i$& Upper bound in hold time when pushing the activation of delaying tasks. \\ 
 		\hline
-		$PI_i$ & Push interval of delaying tasks relative to $LB^{init}_i$.   \\ 
+		$PI_i$ & Push interval of delaying tasks relative to $LB_i$.   \\ 
 		\hline
 		$DI_i$ & Delay interval of task $\tau_i$ is the time interval in which delaying tasks can affect the hold time.\\
 		\hline 
@@ -342,7 +344,7 @@ In order to illustrate how the algorithm works, consider the task-set $\mathpzc{
 		\hline 
 	\end{tabular}
 	\small
-	\item The \textit{least common multiple} of the periods is 240 and $U^{\mathpzc{T_{\ref{tab:taskset2}}}} \approx 0.96$.
+	\item The \textit{least common multiple} of the periods is 240 and $U^{\mathpzc{T_{\ref{tab:taskset5}}}} \approx 0.96$.
 \end{table}
 
 \begin{figure}[H]
@@ -352,14 +354,93 @@ In order to illustrate how the algorithm works, consider the task-set $\mathpzc{
 	\label{fig:bcht_1}
 \end{figure}
 
-Note that the only way for the job of task $\tau_4$ to have a hold time higher than $HLB_4=55$ is by experiencing preemption by either task $\tau_1$, $\tau_2$ or both. Since $\tau_2$ has a \textit{best-case execution time} $BC_2=6$, we can choose this task to preempt $\tau_4$ and the condition will be met because $HLB^{init}_i+BC_2= 56$ which is higher $HLB_i = 55$. This is indeed the \textit{best-case hold time} because if we would choose $\tau_1$ to preempt $\tau_4$, the resulting hold time would be $HLB^{init}_i+BC_1= 64$. Figure 
+Note that the only way for the job of task $\tau_4$ to have a hold time higher than $HLB_4=55$ is by experiencing preemption by either task $\tau_1$, $\tau_2$ or both. Since $\tau_2$ has a \textit{best-case execution time} $BC_2=6$, we can choose this task to preempt $\tau_4$ and the condition will be met because $HLB^{init}_i+BC_2= 56$ which is higher than $HLB_i = 55$. This is indeed the \textit{best-case hold time} because if we would choose $\tau_1$ to preempt $\tau_4$, the resulting hold time would be $HLB^{init}_i+BC_1= 64$. Figure \ref{fig:bcht_2} shows the schedule where the \textit{best-case hold time} for task $\tau_4$ is assumed.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth]{figures/bcht_2}
-	\caption{Schedule of task-set $\mathpzc{T}_{\ref{tab:taskset5}}$ where the \textit{best-case hold time} for task $\tau_4$ is assumed ($BH_4 = 56$).}
+	\caption{Schedule of task-set $\mathpzc{T}_{\ref{tab:taskset5}}$ where the \textit{best-case hold time} of task $\tau_4$ is assumed ($BH_4 = 56$).}
 	\label{fig:bcht_2}
 \end{figure}
+
+\section{BCRT lower bound for FPTS}
+Given a task-set $\mathpzc{T}$ of strictly periodic tasks, Algorithm 2 shows a procedure to derive a lower bound for the \textit{best-case response time} of a task $\tau_i$. The algorithm first determine a lower bound for the hold time and the activation $AD_i$ of the delaying tasks of $\tau_i$ is set to this value in Line 2. In Line 3, the $BR^{lb}_i$ is initialized with some upper bound. A lower bound candidate is derived in Line 5 using a similar approach as for the \textit{best-case response time} analysis for FPPS. The purpose of the outer max is to make sure that $BR^{lb}_i$ is at least the same as the activation of delaying tasks $AD_i$. In case that $BR^{lb}_i$ is higher than $AD_i$, Lines 7 to 9 push the activation for the delaying tasks in order to allow to reduce $BR^{lb}_i$ in the next iteration. More precisely, the job $k^{tight}$ of task $\tau_i$ that induces some delay on the start time of the job experiencing the optimal instant is determined in Line 7. Moreover, Lines 8 and 9 determine the time the activation of delaying tasks should be pushed at an earlier moment, to prevent job $k^{tight}$ from inducing some blocking. At this point, if the new value of $AD_i$ exceeds the current $BR^{lb}_i$, then it is not beneficial to push the activation of delaying tasks to reduce the \textit{best-case response time}; hence, the algorithm terminates.
+
+\begin{table}[H]
+	\center
+	\caption{Terminology.}
+	\label{tab:terminology}
+	\begin{tabular}{|c | p{9cm}|}
+		\hline
+		Name & Descriptions \\ 
+		\hline 
+		\hline
+		$AD_i$& Activation of delaying tasks relative to the optimal instant.\\
+		\hline
+		$DI_i$& Time interval from the activation of job $k$ of $\tau_i$ that provokes a delay on the start time of the job experiencing the optimal instant to the activation of delaying tasks.\\
+		\hline 
+	\end{tabular}
+	%\small
+	%\item Add extra caption.
+\end{table} 
+
+\begin{algorithm}[H]
+	\caption{Algorithm to derive a lower bound for the \textit{best-case response time} of task $\tau_i$.}\label{euclid}
+	\begin{algorithmic}[1]
+		\Procedure{\textit{bcrtLowerBound}}{$\mathpzc{T}$,$i$}
+		\State $AD_i \gets HLB(\mathpzc{T},i)$;
+		\State $BR^{lb}_i \gets \infty$;
+		\While {$BR^{lb}_i > AD_i$}
+		\State $BR^{lb}_i \gets \max\{ AD_i, \max \limits_{2 \leq k \leq wl_i} (BI_i(k \cdot BC_i, AD_i) - (k-1)T_i) \}$;
+		\If {$BR^{lb}_i > AD_i$}
+		\State $k^{tight} \gets$ the maximum job $k$ with $2 \leq k \leq wl_i$ that leads to $BR^{lb}_i$;
+		\State $DI_i \gets BI_i(k^{tight} \cdot BC_i, AD_i) - AD_i$;
+		\State $AD_i \gets \min \limits_{d:\theta_i \geq \pi_d > \pi_i} (DI_i \mod T_d) + AD_i$
+		\EndIf {\textbf{end if}}
+		\EndWhile{\textbf{end while}}
+		\State \Return $BR^{lb}_i$; 
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+\subsection{An example}
+Consider the set of tasks $\mathpzc{T}_{\ref{tab:ts_example}}$ with characteristics as described in Table $\ref{tab:ts_example}$. We will apply Algorithm 2 to derive a lower bound for the \textit{best-case response time} $BR_4$ of task $\tau_4$. Figure \ref{fig:bcrt_lb_ex1} shows an example of how each variable of the algorithm would be represented in a schedule after the first iteration. As can be seen, $AD^{(0)}_4=22$ represents the initial value of $AD_4$, and it is equal to the hole time of the last job of $\tau_4$. Furthermore, the job of $\tau_4$ activated at time $t=560$ denoted as $k^{tight}$ is the one that leads to the $BR^{lb (1)}_4=36$. Based on this, the algorithm then determines the value $AD^{(1)}_4=26$ that would allow to push the phase of $\phi_4$ further in order to reduce the \textit{best-case response time} of $\tau_4$. Note that $BR^{lb (1)}_4$ is larger than $AD^{(1)}_4$; hence, the algorithm will continue with the next iteration.
+
+\begin{table}[H]
+	\center
+	\caption{Task set $\mathpzc{T}_{\ref{tab:ts_example}}$.}
+	\label{tab:ts_example}
+	\begin{tabular}{c c c c c | c c}
+		\hline 
+		& $T_i$ & $WC_i=BC_i$ & $\pi_i$ & $\theta_i$ &  $wl_i$ & $BR_i$\\ 
+		\hline 
+		$\tau_1$& 35 & 5  & 4 & 4 &  1 & 5\\ 
+		$\tau_2$& 35 & 5  & 3 & 3 &  1 & 5\\ 
+		$\tau_3$& 50 & 20 & 2 & 2 &  2 & 20\\ 
+		$\tau_4$& 70 & 22 & 1 & 2 &  5 & 27\\
+		\hline 
+	\end{tabular}
+	\small
+	\item The \textit{least common multiple} of the periods is 350 and $U^{\mathpzc{T_{\ref{tab:ts_example}}}}=1$.
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{figures/bcrt_lb_ex1.PNG}
+	\caption{Example after the first iteration of $bcrtLowerBound(\mathpzc{T}_{\ref{tab:ts_example}},4)$. }
+	\label{fig:bcrt_lb_ex1}
+\end{figure}
+
+Figure \ref{fig:bcrt_lb_ex2} shows the schedule in the second iterations of $bcrtLowerBound(\mathpzc{T}_{\ref{tab:ts_example}},4)$. As can be seen, the activations of the delaying task $\tau_3$ was pushed to an earlier moment in time, allowing to decrease the response time of the last job. At this point $BR^{lb(2)}_4 = AD^{(2)}_4 = 26$; hence, the algorithm will terminate because there is no previous job restricting the response time of the last job.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{figures/bcrt_lb_ex2.PNG}
+	\caption{Example after the second iteration of $bcrtLowerBound(\mathpzc{T}_{\ref{tab:ts_example}},4)$. }
+	\label{fig:bcrt_lb_ex2}
+\end{figure}
+
+We conclude that  $BR^{lb}_4 = 26$ is a proper lower bound for the \textit{best-case response time} of $\tau_4$.
 
 \begin{thebibliography}{10}
 	
