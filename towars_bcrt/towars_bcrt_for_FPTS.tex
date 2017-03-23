@@ -404,7 +404,7 @@ Given a task-set $\mathpzc{T}$ of strictly periodic tasks, Algorithm 2 shows a p
 \end{algorithm}
 
 \subsection{An example}
-Consider the set of tasks $\mathpzc{T}_{\ref{tab:ts_example}}$ with characteristics as described in Table $\ref{tab:ts_example}$. We will apply Algorithm 2 to derive a lower bound for the \textit{best-case response time} $BR_4$ of task $\tau_4$. Figure \ref{fig:bcrt_lb_ex1} shows an example of how each variable of the algorithm would be represented in a schedule after the first iteration. As can be seen, $AD^{(0)}_4=22$ represents the initial value of $AD_4$, and it is equal to the hole time of the last job of $\tau_4$. Furthermore, the job of $\tau_4$ activated at time $t=560$ denoted as $k^{tight}$ is the one that leads to the $BR^{lb (1)}_4=36$. Based on this, the algorithm then determines the value $AD^{(1)}_4=26$ that would allow to push the phase of $\phi_4$ further in order to reduce the \textit{best-case response time} of $\tau_4$. Note that $BR^{lb (1)}_4$ is larger than $AD^{(1)}_4$; hence, the algorithm will continue with the next iteration.
+Consider the set of tasks $\mathpzc{T}_{\ref{tab:ts_example}}$ with characteristics as described in Table $\ref{tab:ts_example}$. We will apply Algorithm 2 to derive a lower bound for the \textit{best-case response time} $BR_4$ of task $\tau_4$. Figure \ref{fig:bcrt_lb_ex1} shows an example of how each variable of the algorithm would be represented in a schedule after the first iteration. As can be seen, $AD^{(0)}_4=22$ represents the initial value of $AD_4$, and it is equal to the hold time of the last job of $\tau_4$. Furthermore, the job of $\tau_4$ activated at time $t=560$ denoted as $k^{tight}$ is the one that leads to the $BR^{lb (1)}_4=36$. Based on this, the algorithm then determines the value $AD^{(1)}_4=26$ that would allow to push the phase of $\phi_4$ further in order to reduce the \textit{best-case response time} of $\tau_4$. Note that $BR^{lb (1)}_4$ is larger than $AD^{(1)}_4$; hence, the algorithm will continue with the next iteration.
 
 \begin{table}[H]
 	\center
@@ -431,7 +431,7 @@ Consider the set of tasks $\mathpzc{T}_{\ref{tab:ts_example}}$ with characterist
 	\label{fig:bcrt_lb_ex1}
 \end{figure}
 
-Figure \ref{fig:bcrt_lb_ex2} shows the schedule in the second iterations of $bcrtLowerBound(\mathpzc{T}_{\ref{tab:ts_example}},4)$. As can be seen, the activations of the delaying task $\tau_3$ was pushed to an earlier moment in time, allowing to decrease the response time of the last job. At this point $BR^{lb(2)}_4 = AD^{(2)}_4 = 26$; hence, the algorithm will terminate because there is no previous job restricting the response time of the last job.
+Figure \ref{fig:bcrt_lb_ex2} shows the schedule in the second iterations of $bcrtLowerBound(\mathpzc{T}_{\ref{tab:ts_example}},4)$. As can be seen, the activations of the delaying task $\tau_3$ was pushed to an earlier moment in time, allowing to decrease the response time of the last job. At this point $BR^{lb(2)}_4 = AD^{(2)}_4 = 26$; hence, the algorithm terminates because there is no previous job restricting the response time of the last job of $\tau_4$.
 
 \begin{figure}[H]
 	\centering
