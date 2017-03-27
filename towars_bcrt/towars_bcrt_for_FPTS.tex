@@ -197,17 +197,18 @@ Consider the task-set $\mathpzc{T}_{\ref{tab:taskset3}}$ presented in Table \ref
 	\center
 	\caption{Task set $\mathpzc{T}_{\ref{tab:taskset3}}$.}
 	\label{tab:taskset3}
-	\begin{tabular}{c c c c c | c c}
+	\begin{tabular}{c c c c c | c c c c c c c}
 		\hline 
-		& $T_i$ & $WC_i=BC_i$ & $\pi_i$ & $\theta_i$ &  $wl_i$ & $BR_i$\\ 
+		& $T_i$ & $WC_i=BC_i$ & $\pi_i$ & $\theta_i$ &  $wl_i$ & $WR^{\rm T}_i$ & $BR^{\rm T}_i$ & $RJ^{\rm T}_i$ &  $WR^{\rm P}_i$ & $BR^{\rm P}_i$ & $RJ^{\rm P}_i$\\ 
 		\hline 
-		$\tau_1$& 80  & 20  & 3 & 3 &  1 & 20\\ 
-		$\tau_2$& 30  & 15  & 2 & 2 &  2 & 15\\ 
-		$\tau_3$& 240 & 50  & 1 & 2 &  1 & 70\\ 
+		$\tau_1$& 80  & 20  & 3 & 3 &  1 & 20 & 20  & 0  & 20  & 20  & 0\\ 
+		$\tau_2$& 30  & 15  & 2 & 2 &  8 & 104 & 15 & 89 & 35  & 15  & 20\\ 
+		$\tau_3$& 240 & 50  & 1 & 2 &  1 & 120 & 70 & 50 & 230 & 165 & 65\\ 
 		\hline 
 	\end{tabular}
+
 	\small
-	\item The \textit{least common multiple} of the periods is 240 and $U^{\mathpzc{T_{\ref{tab:taskset2}}}} \approx 0.96$.
+	\item The \textit{least common multiple} of the periods is 240 and $U^{\mathpzc{T_{\ref{tab:taskset3}}}} \approx 0.96$.
 \end{table} 
 
 \begin{figure}[H]
@@ -292,11 +293,11 @@ where the notion $w^+$ stands for $\max(w,0)$.
 		\hline
 		$HLB^{init}_i$& Initial lower bound. This is the \textit{best-case hold time} of task $\tau_i$ when considering only preemptive tasks.\\
 		\hline
-		$LB_i$& Lower bound of the \textit{best-case hold time} if $\tau_i$; $BH_i > LB_i.$\\
+		$BH^{lb}_i$& Lower bound of the \textit{best-case hold time} of $\tau_i$; $BH_i \geq BH^{lb}_i.$\\
 		\hline
 		$UB_i$& Upper bound in hold time when pushing the activation of delaying tasks. \\ 
 		\hline
-		$PI_i$ & Push interval of delaying tasks relative to $LB_i$.   \\ 
+		$PI_i$ & Push interval of delaying tasks relative to $BH^{lb}_i$.   \\ 
 		\hline
 		$DI_i$ & Delay interval of task $\tau_i$ is the time interval in which delaying tasks can affect the hold time.\\
 		\hline 
@@ -308,26 +309,44 @@ where the notion $w^+$ stands for $\max(w,0)$.
 \begin{algorithm}[H]
 	\caption{Algorithm to derive a tighter lower bound for the \textit{best-case hold time} of task $\tau_i$.}\label{euclid}
 	\begin{algorithmic}[1]
-		\Procedure{\textit{HLB}$_i$}{$\mathpzc{T}$}
+		\Procedure{\textit{bchtLowerBound}}{$\mathpzc{T},i$}
 		\State $HLB^{init}_i = BI_i(BC_i,\infty)$;
-		\State $PI_i = -\delta$;
-		\State $LB_i = HLB^{init}_i + PI_i$;
-		\State $UB_i = BI_i(BC_i,LB_i)$;
-		\If {$UB_i > HLB^{init}_i$}
-		\State $LB_i = HLB^{init}_i$;
-		\EndIf {\textbf{end if}}
+		\State $BH^{lb}_i = HLB^{init}_i$;
+		\State $UB_i = BI_i(BC_i,BH^{lb}_i)$;
 		\While {$UB_i > HLB^{init}_i$}
-		\State $DI_i = UB_i - LB_i$;
+		\State $DI_i = UB_i - BH^{lb}_i$;
 		\State $PI_i = \min \limits_{d:\theta_i \geq \pi_d > \pi_i} (DI_i \mod T_d);$
-		\State $LB_i = LB_i + PI_i$;
-		\State $UB_i = BI_i(BC_i,LB_i)$;
+		\State $BH^{lb}_i = BH^{lb}_i + PI_i$;
+		\State $UB_i = BI_i(BC_i,BH^{lb}_i)$;
 		\EndWhile{\textbf{end while}}
-		\State \Return $LB_i$; 
+		\State \Return $BH^{lb}_i$; 
 		\EndProcedure
 	\end{algorithmic}
 \end{algorithm}
 
-In order to illustrate how the algorithm works, consider the task-set $\mathpzc{T}_{\ref{tab:taskset5}}$ described in Table \ref{tab:taskset5}. Figure \ref{fig:bcht_1} shows the notions after performing Algorithm 1 to calculate $HLB_4=55$. Note that in Figure \ref{fig:bcht_1}, the second job of $\tau_3$ activated at time $t=30$, namely $\iota_{3,2}$, does not start. This is to illustrate that the \textit{best-case hold time} of $\tau_4$ should be long enough in order to delay the start time of $\iota_{3,2}$, i.e. $BH_4 > HLB_4$. If this condition is not met, the job $\iota_{3,2}$ will start and delay the start time of $\tau_4$. As a consequence, the job of $\tau_4$ will experience preemptions by the higher priority tasks activated at time $t=85$.
+%\begin{algorithm}[H]
+%	\caption{Algorithm to derive a tighter lower bound for the \textit{best-case hold time} of task $\tau_i$.}\label{euclid}
+%	\begin{algorithmic}[1]
+%		\Procedure{\textit{HLB}$_i$}{$\mathpzc{T}$}
+%		\State $HLB^{init}_i = BI_i(BC_i,\infty)$;
+%		\State $PI_i = -\delta$;
+%		\State $LB_i = HLB^{init}_i + PI_i$;
+%		\State $UB_i = BI_i(BC_i,LB_i)$;
+%		\If {$UB_i > HLB^{init}_i$}
+%		\State $LB_i = HLB^{init}_i$;
+%		\EndIf {\textbf{end if}}
+%		\While {$UB_i > HLB^{init}_i$}
+%		\State $DI_i = UB_i - LB_i$;
+%		\State $PI_i = \min \limits_{d:\theta_i \geq \pi_d > \pi_i} (DI_i \mod T_d);$
+%		\State $LB_i = LB_i + PI_i$;
+%		\State $UB_i = BI_i(BC_i,LB_i)$;
+%		\EndWhile{\textbf{end while}}
+%		\State \Return $LB_i$; 
+%		\EndProcedure
+%	\end{algorithmic}
+%\end{algorithm}
+
+In order to illustrate how the algorithm works, consider the task-set $\mathpzc{T}_{\ref{tab:taskset5}}$ described in Table \ref{tab:taskset5}. Figure \ref{fig:bcht_1} shows the notions after performing Algorithm 1 to calculate $BH^{lb}_4=55$. Note that in Figure \ref{fig:bcht_1}, the second job of $\tau_3$ activated at time $t=30$, namely $\iota_{3,2}$, does not start. This is to illustrate that the \textit{best-case hold time} of $\tau_4$ should be long enough in order to delay the start time of $\iota_{3,2}$, i.e. $BH_4 > BH^{lb}_4$. If this condition is not met, the job $\iota_{3,2}$ will start and delay the start time of $\tau_4$. As a consequence, the job of $\tau_4$ will experience preemptions by the higher priority tasks activated at time $t=85$.
 
 \begin{table}[H]
 	\center
@@ -335,7 +354,7 @@ In order to illustrate how the algorithm works, consider the task-set $\mathpzc{
 	\label{tab:taskset5}
 	\begin{tabular}{c c c c c | c c c c}
 		\hline 
-		& $T_i$ & $WC_i=BC_i$ & $\pi_i$ & $\theta_i$ &  $wl_i$ & $BR_i$ & $HLB_i$ & $HLB^{init}_i$\\ 
+		& $T_i$ & $WC_i=BC_i$ & $\pi_i$ & $\theta_i$ &  $wl_i$ & $BR_i$ & $BH^{lb}_i$ & $HLB^{init}_i$\\ 
 		\hline 
 		$\tau_1$& 80  & 14  & 4 & 4 &  1 & 14 & &\\
 		$\tau_2$& 80  & 6   & 3 & 3 &  1 & 6  & &\\ 
@@ -354,7 +373,7 @@ In order to illustrate how the algorithm works, consider the task-set $\mathpzc{
 	\label{fig:bcht_1}
 \end{figure}
 
-Note that the only way for the job of task $\tau_4$ to have a hold time higher than $HLB_4=55$ is by experiencing preemption by either task $\tau_1$, $\tau_2$ or both. Since $\tau_2$ has a \textit{best-case execution time} $BC_2=6$, we can choose this task to preempt $\tau_4$ and the condition will be met because $HLB^{init}_i+BC_2= 56$ which is higher than $HLB_i = 55$. This is indeed the \textit{best-case hold time} because if we would choose $\tau_1$ to preempt $\tau_4$, the resulting hold time would be $HLB^{init}_i+BC_1= 64$. Figure \ref{fig:bcht_2} shows the schedule where the \textit{best-case hold time} for task $\tau_4$ is assumed.
+Note that the only way for the job of task $\tau_4$ to have a hold time higher than $BH^{lb}_4=55$ is by experiencing preemption by either task $\tau_1$, $\tau_2$ or both. Since $\tau_2$ has a \textit{best-case execution time} $BC_2=6$, we can choose this task to preempt $\tau_4$ and the condition will be met because $HLB^{init}_4+BC_2= 56$ which is higher than $BH^{lb}_4 = 55$. This is indeed the \textit{best-case hold time} because if we would choose $\tau_1$ to preempt $\tau_4$, the resulting hold time would be $HLB^{init}_4+BC_1= 64$. Figure \ref{fig:bcht_2} shows the schedule where the \textit{best-case hold time} of task $\tau_4$ is assumed.
 
 \begin{figure}[H]
 	\centering
@@ -364,7 +383,7 @@ Note that the only way for the job of task $\tau_4$ to have a hold time higher t
 \end{figure}
 
 \section{BCRT lower bound for FPTS}
-Given a task-set $\mathpzc{T}$ of strictly periodic tasks, Algorithm 2 shows a procedure to derive a lower bound for the \textit{best-case response time} of a task $\tau_i$. The algorithm first determine a lower bound for the hold time and the activation $AD_i$ of the delaying tasks of $\tau_i$ is set to this value in Line 2. In Line 3, the $BR^{lb}_i$ is initialized with some upper bound. A lower bound candidate is derived in Line 5 using a similar approach as for the \textit{best-case response time} analysis for FPPS. The purpose of the outer max is to make sure that $BR^{lb}_i$ is at least the same as the activation of delaying tasks $AD_i$. In case that $BR^{lb}_i$ is higher than $AD_i$, Lines 7 to 9 push the activation for the delaying tasks in order to allow to reduce $BR^{lb}_i$ in the next iteration. More precisely, the job $k^{tight}$ of task $\tau_i$ that induces some delay on the start time of the job experiencing the optimal instant is determined in Line 7. Moreover, Lines 8 and 9 determine the time the activation of delaying tasks should be pushed at an earlier moment, to prevent job $k^{tight}$ from inducing some blocking. At this point, if the new value of $AD_i$ exceeds the current $BR^{lb}_i$, then it is not beneficial to push the activation of delaying tasks to reduce the \textit{best-case response time}; hence, the algorithm terminates.
+Given a task-set $\mathpzc{T}$ of strictly periodic tasks, Algorithm 2 shows a procedure to derive a lower bound for the \textit{best-case response time} of a task $\tau_i$. The algorithm first determines a lower bound for the hold time and the activation $AD_i$ of the delaying tasks of $\tau_i$ is set to this value in line 2. In line 3, the $BR^{lb}_i$ is initialized with some upper bound. A lower bound candidate is derived in line 5 using a similar approach as for the \textit{best-case response time} analysis for FPPS. The purpose of the outer max is to make sure that $BR^{lb}_i$ is at least the same as the activation of delaying tasks $AD_i$. In case that $BR^{lb}_i$ is higher than $AD_i$, lines 7 to 9 push the activation for the delaying tasks in order to allow to reduce $BR^{lb}_i$ in the next iteration. More precisely, the job $k^{tight}$ of task $\tau_i$ that induces some delay on the start time of the job experiencing the optimal instant is determined in line 7. Moreover, lines 8 and 9 determine the time the activation of delaying tasks should be pushed at an earlier moment in order to prevent job $k^{tight}$ from inducing some blocking. At this point, if the new value of $AD_i$ exceeds the current $BR^{lb}_i$, then it is not beneficial to push the activation of delaying tasks to reduce the \textit{best-case response time}; hence, the algorithm terminates.
 
 \begin{table}[H]
 	\center
@@ -377,7 +396,7 @@ Given a task-set $\mathpzc{T}$ of strictly periodic tasks, Algorithm 2 shows a p
 		\hline
 		$AD_i$& Activation of delaying tasks relative to the optimal instant.\\
 		\hline
-		$DI_i$& Time interval from the activation of job $k$ of $\tau_i$ that provokes a delay on the start time of the job experiencing the optimal instant to the activation of delaying tasks.\\
+		$DI_i$& Time interval between the activation of delaying tasks and the activation of job $k$ of $\tau_i$ that provokes a delay on the start time of the job experiencing the optimal instant.\\
 		\hline 
 	\end{tabular}
 	%\small
@@ -388,7 +407,7 @@ Given a task-set $\mathpzc{T}$ of strictly periodic tasks, Algorithm 2 shows a p
 	\caption{Algorithm to derive a lower bound for the \textit{best-case response time} of task $\tau_i$.}\label{euclid}
 	\begin{algorithmic}[1]
 		\Procedure{\textit{bcrtLowerBound}}{$\mathpzc{T}$,$i$}
-		\State $AD_i \gets HLB(\mathpzc{T},i)$;
+		\State $AD_i \gets bchtLowerBound(\mathpzc{T},i)$;
 		\State $BR^{lb}_i \gets \infty$;
 		\While {$BR^{lb}_i > AD_i$}
 		\State $BR^{lb}_i \gets \max\{ AD_i, \max \limits_{2 \leq k \leq wl_i} (BI_i(k \cdot BC_i, AD_i) - (k-1)T_i) \}$;

@@ -104,7 +104,7 @@
 %\end{lemma}
 
 \begin{lemma}
-	Given a task-set $\mathpzc{T}$ of $n$ independent tasks scheduled using FPTS, and a level-$n$ busy period $[t_s,t_f]$ of such a schedule. If for a new task-set $\mathpzc{T} \cup \{\tau_{n+1}\}$, the phase of $\tau_{n+1}$ is selected in such a way that a job $k$ of $\tau_{n+1}$ is scheduled in an interval $[t_1,t_s)$, where there is an amount of time $C_{n+1}$ available for the execution of $\tau_{n+1}$, then the schedule of all jobs in $[t_s,t_f)$ remains the same after introducing $\tau_{n+1}$.
+	Given a task-set $\mathpzc{T}$ of $n$ independent tasks scheduled using FPTS, and a level-$n$ busy period $[t_s,t_f]$ of such a schedule. If for a new task-set $\mathpzc{T} \cup \{\tau_{n+1}\}$, the phase of $\tau_{n+1}$ is selected in such a way that a job $k$ of $\tau_{n+1}$ is scheduled in an interval $[t_1,t_s)$ where there is an amount of time $C_{n+1}$ available for the execution of $\tau_{n+1}$, and job $k$ does not experience blocking by previous jobs of $\tau_{n+1}$, then the schedule of all jobs in $[t_s,t_f)$ remains the same after introducing $\tau_{n+1}$.
 \end{lemma}
 
 %\begin{proof}
@@ -116,7 +116,7 @@
 \begin{proof}
 	Assume a level-$n$ busy period $[t_s,t_f]$ for task-set $\mathpzc{T}$, and also assume that task $\tau_{n+1}$ is scheduled in such a way that a job $k$ of $\tau_{n+1}$ occurs in the interval $[t_1,t_s)$ as described in Lemma 1. We now show that, under this condition, the schedule in the interval $[t_s,t_f)$ remains the same after introducing $\tau_{n+1}$.
 	
-	After introducing $\tau_{n+1}$, the schedule in $[t_s,t_f)$ can be affected by any blocking introduced by the job $k$ of $\tau_{n+1}$, by any of its previous jobs $k_{prev}$ with $k_{prev} < k$, or by any later job $k_{post}$ of $\tau_{n+1}$ with $k_{post} > k$. Since we assumed that job $k$ of $\tau_{n+1}$ occurs in $[t_1,t_s)$ and there is enough time available in this interval for its execution, then it can finalize before $t_s$ without inducing blocking to the jobs in $[t_s,t_f)$; hence, this job does not affect the schedule in $[t_s,t_f)$. Furthermore, any previous job $k_{prev}$ of $\tau_{n+1}$ should has finished before job $k$; hence, it will not affect the schedule in $[t_s,t_f)$ either. Finally, any job $k_{post}$ of $\tau_{n+1}$ should start after job $k$; however, it cannot start in the interval $[f_{n+1,k},t_f)$ because there is no idle time available for $\tau_{n+1}$. Therefore, the start time of any job $k_{post}$ of $\tau_{n+1}$ will occur after $[t_s,t_f)$, and, as a result, it will not affect the schedule in $[t_s,t_f)$.
+	After introducing $\tau_{n+1}$, the schedule in $[t_s,t_f)$ can be affected by any blocking introduced by the job $k$ of $\tau_{n+1}$, or by any later job $k_{post}$ of $\tau_{n+1}$ with $k_{post} > k$. Recall that we assumed that job $k$ of $\tau_{n+1}$ occurs in $[t_1,t_s)$, and it does not experience blocking by previous jobs; furthermore, there is enough time available in this interval for its execution. Hence, this job can finalize before $t_s$ without inducing blocking to the jobs in $[t_s,t_f)$, and therefore it will not affect the schedule in $[t_s,t_f)$. Finally, any job $k_{post}$ of $\tau_{n+1}$ should start after job $k$; however, it cannot start in the interval $[f_{n+1,k},t_f)$ because there is no idle time available for $\tau_{n+1}$. Therefore, the start time of any job $k_{post}$ of $\tau_{n+1}$ will be after or at time $t_f$. As a result, it will not affect the schedule in $[t_s,t_f)$.
 \end{proof}
 
 %\begin{lemma}
@@ -124,7 +124,7 @@
 %\end{lemma}
 
 \begin{lemma}
-	Given a task-set $\mathpzc{T}$ of $n$ independent tasks scheduled under FPTS, a level-$n$ busy period $[t_s,t_f]$ of such a schedule, and a new task-set $\mathpzc{T} \cup \{\tau_{n+1}\}$ where $U^{\mathpzc{T} \cup \tau_{n+1}}<1$ or $U^{\mathpzc{T} \cup \tau_{n+1}} = 1$ and the lcm of the periods exists. It is always possible for task-set $\mathpzc{T} \cup \{\tau_{n+1}\}$ to select the phase of $\tau_{n+1}$ in such a way that a job $k$ of $\tau_{n+1}$ is scheduled in an interval $[t_1,t_s)$, where there is an amount of time $C_{n+1}$ available for the execution of $\tau_{n+1}$.
+	Given a task-set $\mathpzc{T}$ of $n$ independent tasks scheduled under FPTS, a level-$n$ busy period $[t_s,t_f]$ of such a schedule, and a new task-set $\mathpzc{T} \cup \{\tau_{n+1}\}$ where $U^{\mathpzc{T} \cup \tau_{n+1}}<1$ or $U^{\mathpzc{T} \cup \tau_{n+1}} = 1$ and the lcm of the periods exists. It is always possible for task-set $\mathpzc{T} \cup \{\tau_{n+1}\}$ to select the phase of $\tau_{n+1}$ in such a way that a job $k$ of $\tau_{n+1}$ is scheduled in an interval $[t_1,t_s)$ where there is an amount of time $C_{n+1}$ available for the execution of $\tau_{n+1}$, and job $k$ does not experience blocking by previous jobs of $\tau_{n+1}$.
 \end{lemma}
 
 \begin{proof}
@@ -140,7 +140,7 @@
 \end{lemma}
 
 \begin{proof}
-	Assume that we find a schedule for a subset of task-set $\mathpzc{T}$ defined as $\mathpzc{T}_i = \{\tau_a | a \leq i, \tau_a \in \mathpzc{T}\}$ where the \textit{best-case response time} $BR_i$ of $\tau_i$ is assumed by job $k^{bcrt}$ in the level-$i$ busy period $[t_{s},t_{f}]$. Note that task-set $\mathpzc{T}_i$ contains the same tasks as $\mathpzc{T}$ without the lower priority tasks of $\tau_i$. Given Lemmas 1 and 2, we can construct a schedule for a task-set $\mathpzc{T}_{i+1}$ where task $\tau_{i+1}$ is scheduled in such a way that a job $k$ occurs in a contingent time interval $[t_1, t_s)$ before $[t_s,t_f)$. Hence, the schedule in time interval $[t_s,t_f)$ will remain unchanged and the \textit{best-case response time} $BR_i$ of $\tau_i$ will remain the same in $\mathpzc{T}_{i+1}$. Furthermore, note that since job $k$ of $\tau_{i+1}$ occurs in a contingent time interval $[t_1, t_s)$ before $[t_s,t_f)$, these two time intervals are contained in the level-$\{i+1\}$ busy period $[t\prime_s,t\prime_f]$; hence, job $k^{bcrt}$ of $\tau_i$ occurs in $[t\prime_s,t\prime_f]$ as well. Based on this observation and using Lemmas 1 and 2 again, we can find a schedule for a task-set $\mathpzc{T}_{i+2}$ where the jobs in the  level-$\{i+1\}$ busy period $[t\prime_s,t\prime_f]$ remain unchanged and, therefore, $BR_i$ is preserved. Since we can continue constructing schedules preserving the \textit{best-case response time} of $\tau_i$ until $\mathpzc{T}_{i+l} = \mathpzc{T}$, we conclude that the \textit{best-case response time} $BR_i$ of a task $\tau_i$ is not affected by its lower priority tasks.
+	Assume that we find a schedule for a subset of task-set $\mathpzc{T}$ defined as $\mathpzc{T}_i = \{\tau_a | a \leq i, \tau_a \in \mathpzc{T}\}$ where the \textit{best-case response time} $BR_i$ of $\tau_i$ is assumed by job $k^{bcrt}$ in the level-$i$ busy period $[t_{s},t_{f}]$. Note that task-set $\mathpzc{T}_i$ contains the same tasks as $\mathpzc{T}$ without the lower priority tasks of $\tau_i$. Given lemmas 1 and 2, we can construct a schedule for a task-set $\mathpzc{T}_{i+1}$ where task $\tau_{i+1}$ is scheduled in such a way that a job $k$ occurs in a contingent time interval $[t_1, t_s)$ before $[t_s,t_f)$. Hence, the schedule in time interval $[t_s,t_f)$ will remain unchanged and the \textit{best-case response time} $BR_i$ of $\tau_i$ will remain the same in $\mathpzc{T}_{i+1}$. Furthermore, note that since job $k$ of $\tau_{i+1}$ occurs in a contingent time interval $[t_1, t_s)$ before $[t_s,t_f)$, these two time intervals are contained in the level-$\{i+1\}$ busy period $[t\prime_s,t\prime_f]$; hence, job $k^{bcrt}$ of $\tau_i$ occurs in $[t\prime_s,t\prime_f]$ as well. Based on this observation and using lemmas 1 and 2 again, we can find a schedule for a task-set $\mathpzc{T}_{i+2}$ where the jobs in the  level-$\{i+1\}$ busy period $[t\prime_s,t\prime_f]$ remain unchanged and, therefore, $BR_i$ is preserved. Since we can continue constructing schedules preserving the \textit{best-case response time} of $\tau_i$ until $\mathpzc{T}_{i+l} = \mathpzc{T}$, we conclude that the \textit{best-case response time} $BR_i$ of a task $\tau_i$ is not affected by its lower priority tasks.
 \end{proof}
 
 %\begin{proof}
@@ -163,126 +163,7 @@
 
 \begin{thebibliography}{10}
 	
-	\bibitem{WS99}
-	Y. Wang, and M. Saksena.
-	Scheduling fixed-priority tasks with preemption thresholds.
-	In Proc. 6th International Conference on Real-Time Computing Systems and Applications (RTCSA), December 1999.	
-	
-	\bibitem{BHKL12}
-	R.J. Bril, M. van den Heuvel, U. Keskin, and J. Lukkien.
-	Generalized fixed-priority scheduling with preemption thresholds.
-	In Proc. 24th Euromicro Conference on Real-Time Systems (ECRTS), July 2012.
-	
-	\bibitem{BHL13}
-	R.J. Bril, M.M.H.P. v.d. Heuvel, and J.J. Lukkien.
-	Improved feasibility of fixed-priority scheduling with deferred preemption using preemption thresholds for preemption points.
-	In Proc. 21st International Conference on Real-Time Networks and Systems (RTNS), ACM, pp. 225-264, October 2013.
-	
-	\bibitem{BFV08}
-	R.J. Bril, G. Fohler, and W.F.J. Verhaegh. 
-	Execution times and execution jitter of real-time tasks under fixed-priority preemptive scheduling. 
-	Technical Report CSR 08-27, TU/e, The Netherlands, Oct. 2008. \url{http://www.win.tue.nl/~mholende/cantata/publications/BCG-WiP-ECRTS09-final.pdf}
-	
-	\bibitem{BLM13}
-	R.J. Bril, J.J. Lukkien, and R.H. Mak.
-	Best-case response times and jitter analysis of real-time tasks with arbitrary deadlines.
-	In Proc. 21st International Conference on Real-Time Networks and Systems (RTNS), ACM, pp. 193-202, October 2013.
-	
-	\bibitem{C99}
-	A. Cervin. 
-	Improved Scheduling of Control Tasks.
-	In Proc. 11th Euromicro Conference on Real-Time Systems (ECRTS), York, England, pp 4 - 10, 09 Jun 1999. 
-	
-	\bibitem{CRA99} 
-	A. Crespo, I. Ripoll, and P. Albertos. 
-	Reducing Delays in RT Control: The Control Action Interval. 
-	In 14th IFAC World Congress on Automatic Control. Elsevier Science. p. 0. 1999.
-	
-	\bibitem{BC07} 
-	G. Butazzo and A. Cervin. 
-	Comparative Assessment and Evaluation of Jitter Control Methods. 
-	In Proc. 15th International Conference on Real-Time and Network Systems (RTNS), Nancy, France, March 29-30, 2007.
-	
-	\bibitem{LCBRC06}
-	M. Lluesma, A. Cervin, P. Balbastre, I. Ripoll, and A. Crespo.
-	Jitter evaluation of real-time control systems.
-	In Proceedings of the 12th IEEE International Conference on Embedded and Real-Time Computing Systems and Applications, 2006, pp. 257-260.
-	
-	\bibitem{THLT06}
-	Y. Tian, Q. Han, D. Levy, and M. Tade. 
-	Reducing Control Latency and Jitter in Real-Time Control.
-	Asian Journal of Control, Vol. 8, No. 1, pp. 72-75, March 2006.
-	
-	\bibitem{BRVC04}
-	P. Balbastre, I. Ripoll, J. Vidal, and A. Crespo.
-	A task model to reduce control delays.
-	Real-Time Syst., vol. 27, no. 3, pp. 215-236, Sep. 2004.
-	
-	\bibitem{BBGL99}
-	S. Baruah, G. Buttazzo, S. Gorinsky, and G. Lipari. 
-	Scheduling periodic task systems to minimize output jitter. 
-	In Proc. International Conference on Real-Time Computing Systems and 
-	Applications, pages 62-69, Hong Kong, December 1999.
-	
-	\bibitem{HHL10}
-	S. Hong, X. Hu, and M. Lemmon.
-	Reducing delay jitter of real-time control tasks through adaptive deadline adjustments.
-	In Euromicro Conference on Real-Time Systems (ECRTS), 2010, pp. 229-238.
-	
-	\bibitem{MVFF01}
-	P. Marti, R. Villa, J.M. Fuertes, G. Fohler. 
-	On Real-Time Control Task Schedulability. 
-	In European Control Conference (ECC), Porto, Portugal, 4-7 September 2001.
-	
-	\bibitem{MFFR01}
-	P. Marti, J.M. Fuertes, G. Fohler, and K. Ramamritham. 
-	Jitter Compensation for Real-Time Control System. 
-	In Proceedings of the 22nd IEEE Real-Time Systems Symposium, pp 39-48, 2001.
-	
-	\bibitem{MFF01}
-	P. Marti, J.M. Fuertes, G. Fohler. 
-	Sampling Jitter Compensation in Real-time Control Systems. 
-	In Proceedings of the 22nd IEEE Real-Time Systems Symposium (RTSS 2001), 
-	London, UK, 2-6 December 2001.
-	
-	\bibitem{WB09}
-	Y. Wu and M. Bertogna.
-	Improving task responsiveness with limited preemptions.
-	In Proc. 14th IEEE Int. Conf. Emerging Technol. Factory Autom. (ETFA 2009), 
-	Mallorca, Spain, Sep. 2009.
-	
-	\bibitem{L90}
-	J.P. Lehoczky.
-	Fixed Priority Scheduling of Periodic Task Sets with Arbitrary Deadline.
-	In Proceeding of the 11th IEEE Real-Time System Symposium (RTSS 1990), pp 201-209, December 1990.
-	
-	\bibitem{HKL91}
-	M. G. Harbour, M. H. Klein, and J. P. Lehoczky. 
-	Fixed priority scheduling periodic tasks with varying execution priority.
-	Real-Time Systems Symposium, pages 116-128, December 1991.
-	
-	\bibitem{LL73}
-	C. Liu and J. Layland.
-	Scheduling algorithms for multiprogramming in a real-time environment.
-	In Journal of the ACM, vol. 20, no. 1, pp. 46-61, January 1973.	
-	
-	\bibitem{KBL10}
-	U. Keskin, R.J. Bril and J. Luikkien.
-	Exact response-time analysis for fixed-priority preemption-threshold scheduling.
-	In Proc. IEEE Conference on Emerging Technologies and Factory Automation (ETFA), Working-Progress Session, September 2010.
-	
-	\bibitem{BAHDB17}
-	R.J. Bril, S. Altmeyer, M.M.H.P. van den Heuvel, R.I. Davis, and M. Behnam.
-	Fixed priority scheduling with pre-emption thresholds and cache-related pre-emption delays: integrated analysis and evaluation.
-	In Real-Time Systems, 31 January 2017.	
-	doi:10.1007/s11241-016-9266-z
-	
-	\bibitem{GRASP}
-	Mike Holenderski, Martijn M. H. P. van den Heuvel, Reinder J. Bril and Johan J. Lukkien.
-	Grasp: Tracing, Visualizing and Measuring the Behavior of Real-Time Systems.
-	In International Workshop on Analysis Tools and Methodologies for Embedded and Real-time Systems (WATERS), July 2010.
-	
-	
+
 \end{thebibliography}
 \end{document}
 
