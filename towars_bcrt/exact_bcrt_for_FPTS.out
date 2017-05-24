@@ -1,0 +1,6 @@
+\BOOKMARK [1][-]{section.1}{Exact best-case analysis for FPTS}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Optimal instant}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Determining the phasing of delaying and extra preemptive tasks}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Best-case response time for FPTS}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{Exact BCRT analysis for FPTS is NP-Hard}{section.1}% 5
+\BOOKMARK [2][-]{subsection.1.5}{An algorithm for computing BCRT for FPTS}{section.1}% 6

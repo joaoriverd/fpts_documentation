@@ -1,0 +1,14 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: Towards_BCRT_for_FPTS_WiP.aux
+I couldn't open style file IEEEtran.bst
+---line 48 of file Towards_BCRT_for_FPTS_WiP.aux
+ : \bibstyle{IEEEtran
+ :                   }
+I'm skipping whatever remains of this command
+I couldn't open database file IEEEabrv.bib
+---line 49 of file Towards_BCRT_for_FPTS_WiP.aux
+ : \bibdata{IEEEabrv
+ :                  ,Bibliography}
+I'm skipping whatever remains of this command
+I found no database files---while reading file Towards_BCRT_for_FPTS_WiP.aux
+I found no style file---while reading file Towards_BCRT_for_FPTS_WiP.aux
+(There were 4 error messages)

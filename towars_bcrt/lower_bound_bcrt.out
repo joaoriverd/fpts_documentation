@@ -1,0 +1,7 @@
+\BOOKMARK [1][-]{section.1}{BCRT lower bound for FPTS}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Hypothetical best-case interval for execution of a task i}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Hypothetical shortest response time}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Best-case response time lower bound for FPTS}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{Tightness of BRlbi}{section.1}% 5
+\BOOKMARK [2][-]{subsection.1.5}{An algorithm for computing the BCRT lower bound}{section.1}% 6
+\BOOKMARK [2][-]{subsection.1.6}{An example}{section.1}% 7

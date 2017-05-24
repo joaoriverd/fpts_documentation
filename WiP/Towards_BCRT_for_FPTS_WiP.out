@@ -1,0 +1,10 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Real-time scheduling model}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Basic model for FPTS}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Derived notions}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{Best-case response time for non-preemptive tasks}{}% 5
+\BOOKMARK [1][-]{section.4}{Towards best-case analysis for FPTS}{}% 6
+\BOOKMARK [2][-]{subsection.4.1}{Recap of optimal instant for FPPS}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.2}{An introductory example}{section.4}% 8
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 9
+\BOOKMARK [1][-]{section*.1}{References}{}% 10
